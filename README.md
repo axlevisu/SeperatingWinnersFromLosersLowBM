@@ -1,2 +1,2 @@
 # SeperatingWinnersFromLosersLowBM
-implementation of algorithm by Partha S. Mohanram
+Implementation of algorithm by Partha S. Mohanram
