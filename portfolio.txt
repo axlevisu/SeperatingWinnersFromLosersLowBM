@@ -1,0 +1,19 @@
+2011
+long on
+N T P C Ltd.  2.2  6
+Power Grid Corpn. Of India Ltd.  2.29  6
+T V S Motor Co. Ltd.  2.4  6
+Tata Power Co. Ltd.  2.69  6
+Havells India Ltd.  3.43  7
+Biocon Ltd.  3.63  6
+Divi'S Laboratories Ltd.  5.46  6
+	
+short on
+Aurobindo Pharma Ltd.  2.01  0
+Reliance Power Ltd.  2.04  0
+L I C Housing Finance Ltd.  2.58  1
+Oracle Financial Services Software Ltd.  3.64  0
+Wipro Ltd.  4.61  1
+Glaxosmithkline Pharmaceuticals Ltd.  9.56  0
+
+
