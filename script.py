@@ -72,7 +72,7 @@ for company in data:
 			try:
 				q_gr.append((-ns[-20:-4][i]+ns[-16:][i])/ns[-20:-4][i])
 			except:
-				var=1
+				pass
 		q_roa.append(map(sub,map(add,ti,ee),map(add,te,ei)))
 		q_roa = q_roa[0][4:21]
 		q_roa[-1] = q_roa[-1]/company[idx['aAverage total assets'][-1]]
@@ -102,14 +102,14 @@ for company in data:
 for company in companies_for_removal:
 	data.remove(company)
 data =transpose(data)
-data.append(var_gr)
-data.append(var_roa)
-data.append(roa)
-data.append(cfo)
-data.append(rd)
-data.append(capex)
-data.append(adv)
-data.append(g_score)
+data.append(var_gr)# -8
+data.append(var_roa)# -7
+data.append(roa)# -6
+data.append(cfo)# -5
+data.append(rd)# -4
+data.append(capex)# -3
+data.append(adv)# -2
+data.append(g_score)# -1
 for i in xrange(len(data[idx['nNIC code'][0]])): 
 	data[idx['nNIC code'][0]][i] = data[idx['nNIC code'][0]][i][0:3]  
 data =transpose(data)
@@ -144,20 +144,10 @@ for i in indd:
 			data[k][-1]+=1 if data[k][-j]>medians[i][j-2] else 0
 		data[k][-1]+=1 if data[k][-7]>medians[i][5] and data[k][0] not in companies_g4_zero else 0
 		data[k][-1]+=1 if data[k][-8]>medians[i][6] and data[k][0] not in companies_g5_zero else 0
-# gsorted_data = sorted(data, key = lambda x: x[-1])
 bottom_decile =[x for x in data if x[-1] in [0,1] ]
 top_decile =[x for x in data if x[-1] in [6,7,8] ]
-# print transpose(top_decile)[0],transpose(bottom_decile)[0]
-with open(sys.argv[2], "a") as myfile:
-	myfile.write(sys.argv[1][-9:-5]+"\n"+"long on\n" )
-	for company in top_decile:
-		myfile.write(company[idx['nCompany Name'][0]] +"  "+str(company[idx['fP/B '][0]])+"  "+str(company[-1]) + "\n")
-	myfile.write("\nshort on\n" )
-	for company in bottom_decile:
-		myfile.write(company[idx['nCompany Name'][0]] +"  "+str(company[idx['fP/B '][0]])+ "  "+str(company[-1])+"\n")
-	myfile.write("\n\n" )
-returnt = 0
-returnb = 0
+
+returnt,returnb = 0,0
 for company in top_decile:
 	returnt+= (company[idx['fAdjusted Closing Price '][0]]-company[idx['fAdjusted Opening Price '][0]])/company[idx['fAdjusted Opening Price '][0]]
 returnt = 100*returnt/len(top_decile)
@@ -166,3 +156,12 @@ for company in bottom_decile:
 returnb = 100*returnb/len(bottom_decile)
 returns = returnt + returnb #+ 7 #bond rate
 print returnt, returnb, returns
+
+with open(sys.argv[2], "a") as myfile:
+	myfile.write(sys.argv[1][-9:-5]+" returns: "+str(returns)+"\n"+"long:\n" )
+	for company in top_decile:
+		myfile.write(company[idx['nCompany Name'][0]] +"  "+str(company[idx['fP/B '][0]])+"  "+str(company[-1]) + "\n")
+	myfile.write("returns: "+str(returnt)+"\n\nshort:\n" )
+	for company in bottom_decile:
+		myfile.write(company[idx['nCompany Name'][0]] +"  "+str(company[idx['fP/B '][0]])+ "  "+str(company[-1])+"\n")
+	myfile.write("returns: "+str(returnb)+"\n\n" )
