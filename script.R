@@ -1,13 +1,12 @@
 #Piotroski in R
-datafile <- read.csv(commandArgs(trailingOnly = FALSE)[3],sep =',',stringsAsFactors=FALSE)
-useful_info <- datafile[c(3,4),]
+datafile <- read.csv(commandArgs(trailingOnly = FALSE)[6],sep =',',stringsAsFactors=FALSE)
+useful_info <- datafile[c(3,4),-c(1)]
 datafile <- datafile[-(0:4),]
-for(i in seq(length(datafile[,-c(1)]))){
-	datafile[i,-c(1)])] <- as.numeric(datafile[i,-c(1)])
-	# print(class(as.numeric(datafile[i,2])))
-}
-datafile[,-c(1)][is.na(datafile[,-c(1)])] <- 0
-#
+names <- t(datafile[,1])
+datafile <- datafile[,-c(1)]
+datafile <- as.data.frame(sapply(datafile,as.numeric))
+datafile[is.na(datafile)] <- 0
+rownames(datafile) <- names
 useful_info[1,] <- substr(useful_info[1,],nchar(useful_info[1,])-1,nchar(useful_info[1,]))
 prefix_list <- levels(useful_info[1,])
 levels(prefix_list) <- c('n','h','p','c','f')
